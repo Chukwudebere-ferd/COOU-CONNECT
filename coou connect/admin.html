@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+}
+    h2 {
+      color: #205020;
+}
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+}
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+}
+    button {
+      padding: 6px 12px;
+      background-color: #205020;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+}
+    button:hover {
+      background-color: #183818;
+}
+  </style>
+</head>
+<body>
+  <h2>Admin Dashboard</h2>
+  <table id="user-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Verified</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <button id="signout-btn" style="margin-top: 20px;">Sign Out</button>
+
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>
