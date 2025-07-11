@@ -66,21 +66,19 @@ async function loadUsers() {
       const row = document.createElement("tr");
 
       const badge = data.verified? " <span style='color:green;'>✅</span>": "";
-row.innerHTML = `
-  <td>${data.name || "N/A"}${badge}</td>
-  <td>${data.email || "N/A"}</td>
-  <td>${data.verified? "✅": "❌"}</td>
-  <td>
-  <button onclick="toggleVerification('${docSnap.id}', ${data.verified})">
-    ${data.verified? "Unverify": "Verify"}
-  </button>
-</td>
-`;
-
-
-
+        row.innerHTML = `
+          <td>${data.name || "N/A"}${badge}</td>
+          <td>${data.email || "N/A"}</td>
+          <td>${data.verified? "✅": "❌"}</td>
+          <td>
+          <button onclick="toggleVerification('${docSnap.id}', ${data.verified})">
+            ${data.verified? "Unverify": "Verify"}
+          </button>
+        </td>
+        `;
       tbody.appendChild(row);
 });
+
 
 } catch (error) {
     console.error("Error loading users:", error.message);

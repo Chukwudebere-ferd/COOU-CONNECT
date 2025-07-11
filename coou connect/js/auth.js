@@ -5,14 +5,12 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-
 import {
   getFirestore,
   doc,
   setDoc,
   getDoc
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-
 
 // ✅ Firebase config
 const firebaseConfig = {
@@ -29,7 +27,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// ✅ Toggle logic
+// ✅ Form toggling
 const registerForm = document.getElementById("register-form");
 const loginForm = document.getElementById("login-form");
 const showLoginBtn = document.querySelector(".show-login");
@@ -45,11 +43,11 @@ showRegisterBtn.addEventListener("click", () => {
   registerForm.style.display = "flex";
 });
 
-// ✅ Buttons for loading feedback
+// ✅ Button references
 const registerBtn = document.getElementById("register-btn");
 const loginBtn = document.getElementById("login-btn");
 
-// ✅ Register user and save to Firestore
+// ✅ Register
 registerForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   registerBtn.disabled = true;
@@ -66,13 +64,16 @@ registerForm.addEventListener("submit", async (e) => {
     await setDoc(doc(db, "users", user.uid), {
       name,
       email,
+      role: "user",
+      verified: false,
       createdAt: new Date().toISOString()
 });
 
-    alert("Registration successful now login!");
+    alert("Registration successful! You can now log in.");
     registerForm.reset();
     registerForm.style.display = "none";
     loginForm.style.display = "flex";
+
 } catch (error) {
     alert("Registration failed: " + error.message);
 } finally {
@@ -81,7 +82,7 @@ registerForm.addEventListener("submit", async (e) => {
 }
 });
 
-// ✅ Login user
+// ✅ Login
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   loginBtn.disabled = true;
@@ -94,9 +95,13 @@ loginForm.addEventListener("submit", async (e) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // 🔍 Get user role from Firestore
+    // 🔍 Get Firestore user document
     const userDoc = await getDoc(doc(db, "users", user.uid));
-    const role = userDoc.exists()? userDoc.data().role: "user";
+
+    let userData = {};
+    if (userDoc.exists()) {
+      userData = userDoc.data();
+}
 
     const userInfo = {
       uid: user.uid,
@@ -106,12 +111,10 @@ loginForm.addEventListener("submit", async (e) => {
       verified: userData.verified || false
 };
 
-// ✅ Save to localStorage
-localStorage.setItem("coouUser", JSON.stringify(userInfo));
+    localStorage.setItem("coouUser", JSON.stringify(userInfo));
 
-
-    // 🚀 Redirect based on role
-    if (role === "admin") {
+    // 🚀 Redirect
+    if (userInfo.role === "admin") {
       window.location.href = "admin.html";
 } else {
       window.location.href = "dashboard.html";
@@ -124,4 +127,3 @@ localStorage.setItem("coouUser", JSON.stringify(userInfo));
     loginBtn.textContent = "Login";
 }
 });
-
