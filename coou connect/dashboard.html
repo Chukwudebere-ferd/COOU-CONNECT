@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>COOU App UI</title>
-  <link rel="stylesheet" href="/coou connect/css/dashboard.css" />
+  <link rel="stylesheet" href="./public/css/dashboard.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
 </head>
 <body>
 <!-- ✅ Top Header -->
@@ -46,17 +47,13 @@
 
 
 
-  <nav class="tabs">
-    <button id="tab-feeds" ><i class="fa-solid fa-rss"></i> Feeds</button>
-    <button id="tab-users"><i class="fa-solid fa-user-group"></i> Users</button>
-  </nav>
 
   <main id="content">
    <div id="feed-upload" class="feed-upload-card">
   <h3>Create a Post</h3>
   <form id="post-form">
     <textarea id="post-caption" placeholder="What's on your mind?" required></textarea>
-    <input type="file" id="post-image" accept="image/*" required />
+    <input type="file" id="post-image" accept="image/*" />
     <button type="submit">Post</button>
     <p id="post-loader" class="loader-text" style="display: none;">Uploading...</p>
   </form>
@@ -65,16 +62,49 @@
 <!-- Feed Posts Container -->
 <div id="post-feed" class="feed-container"></div>
 <br><br>
+<div id="like-modal" class="like-modal" style="display: none;">
+  <div class="like-modal-content">
+    <h3>Liked By</h3>
+    <ul id="like-user-list"></ul>
+    <button id="close-like-modal">Close</button>
+  </div>
+</div>
+<div class="comment-section">
+  <div class="comment-list">
+    <!-- comment-item(s) injected here -->
+  </div>
+</div>
+
+
+<p id="auth-error" class="error-text" style="display: none; color: red;"></p>
+
+
 
   </main>
+  <div id="nav-placeholder"></div>
 
-  <nav class="bottom-nav">
-    <button id="nav-home"><i class="fa-solid fa-house"></i><span>Home</span></button>
-    <button id="nav-discover"><i class="fa-solid fa-compass"></i><span>Discover</span></button>
-    <button id="nav-trade"><i class="fa-solid fa-chart-line"></i><span>Trade</span></button>
-    <button id="nav-friends"><i class="fa-solid fa-comments"></i><span>Chat</span></button>
-  </nav>
+  <script>
+    // Load nav.html into placeholder
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
 
-  <script type="module" src="/coou connect/js/dashboard.js"></script>
+        // Highlight active nav
+        const current = window.location.pathname;
+        document.querySelectorAll(".bottom-nav button").forEach(btn => {
+          if (current.includes(btn.id.replace("nav-", ""))) {
+            btn.classList.add("active");
+          }
+        });
+
+        // Navigation routing
+        document.querySelector("#nav-home")?.addEventListener("click", () => window.location.href = "dashboard.html");
+        document.querySelector("#nav-discover")?.addEventListener("click", () => window.location.href = "discover.html");
+        document.querySelector("#nav-trade")?.addEventListener("click", () => window.location.href = "users.html");
+        document.querySelector("#nav-friends")?.addEventListener("click", () => window.location.href = "chat.html");
+      });
+  </script>
+  <script type="module" src="./public/js/dashboard.js" defer></script>
 </body>
 </html>

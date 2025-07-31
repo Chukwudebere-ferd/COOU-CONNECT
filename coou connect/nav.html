@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./public/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <title>nav</title>
+    <style>
+  .bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--primary-color, #205020);
+    padding: 12px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .bottom-nav button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-color, #fff);
+  }
+
+  .bottom-nav button i {
+    font-size: 18px;
+  }
+
+  .bottom-nav button.active {
+    background-color: #fff;
+    color: var(--primary-color, #205020);
+    border-radius: 4px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<nav class="bottom-nav">
+  <button id="nav-home"><i class="fa-solid fa-house"></i><span>Home</span></button>
+  <button id="nav-discover"><i class="fa-solid fa-compass"></i><span>Discover</span></button>
+  <button id="nav-trade"><i class="fa-solid fa-users"></i><span>Users</span></button>
+  <button id="nav-friends"><i class="fa-solid fa-comments"></i><span>Chat</span></button>
+</nav>
+
+
+    <!-- ✅ YOUR CURRENT SETUP (just REMOVE the fetch code) -->
+<script>
+  const current = window.location.pathname;
+  document.querySelectorAll(".bottom-nav button").forEach(btn => {
+    if (current.includes(btn.id.replace("nav-", ""))) {
+      btn.classList.add("active");
+    }
+  });
+
+  
+
+  document.addEventListener("click", (e) => {
+    if (e.target.closest("#nav-home")) window.location.href = "dashboard.html";
+    if (e.target.closest("#nav-discover")) window.location.href = "discover.html";
+    if (e.target.closest("#nav-trade")) window.location.href = "users.html";
+    if (e.target.closest("#nav-friends")) window.location.href = "chat.html";
+  });
+</script>
+
+</body>
+</html>

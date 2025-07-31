@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>COOU Connect - Auth</title>
-  <link rel="stylesheet" href="/coou connect/css/style.css" />
-  <script type="module" src="./js/auth.js"></script>
+  <link rel="stylesheet" href="/coou connect/public/css/style.css"/>
+  
 </head>
 <body>
  <div class="auth-container">
@@ -27,6 +27,9 @@
     <button type="submit" id="login-btn">Login</button>
     <p>Don’t have an account? <span class="show-register">Register</span></p>
   </form>
+  <p id="auth-error" class="error-text" style="display: none; color: red;"></p>
+
 </div>
+<script type="module" src="/coou connect/public/js/auth.js"></script>
 </body>
 </html>

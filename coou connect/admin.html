@@ -49,9 +49,33 @@
     </thead>
     <tbody></tbody>
   </table>
+  <p id="auth-error" class="error-text" style="display: none; color: red;"></p>
+
 
   <button id="signout-btn" style="margin-top: 20px;">Sign Out</button>
+   <nav class="bottom-nav"></nav>
 
-  <script type="module" src="js/admin.js"></script>
+  <script type="module" src="/coou connect/public/js/admin.js"></script>
+  <script>
+  fetch("./nav.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("nav-placeholder").innerHTML = html;
+    });
+    const current = window.location.pathname;
+    document.querySelectorAll(".bottom-nav button").forEach(btn => {
+      if (current.includes(btn.id.replace("nav-", ""))) {
+        btn.classList.add("active");
+      }
+    });
+    document.addEventListener("click", (e) => {
+  if (e.target.closest("#nav-home")) window.location.href = "dashboard.html";
+  if (e.target.closest("#nav-discover")) window.location.href = "discover.html";
+  if (e.target.closest("#nav-trade")) window.location.href = "users.html";
+  if (e.target.closest("#nav-friends")) window.location.href = "chat.html";
+});
+
+
+</script>
 </body>
 </html>

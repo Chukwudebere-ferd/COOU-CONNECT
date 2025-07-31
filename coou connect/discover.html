@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover</title>
+    <link rel="stylesheet" href="./public/css/discover.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+
+      <div id="nav-placeholder"></div>
+  <script>
+    // Load nav.html into placeholder
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+
+        // Highlight active nav
+        const current = window.location.pathname;
+        document.querySelectorAll(".bottom-nav button").forEach(btn => {
+          if (current.includes(btn.id.replace("nav-", ""))) {
+            btn.classList.add("active");
+          }
+        });
+
+        // Navigation routing
+        document.querySelector("#nav-home")?.addEventListener("click", () => window.location.href = "dashboard.html");
+        document.querySelector("#nav-discover")?.addEventListener("click", () => window.location.href = "discover.html");
+        document.querySelector("#nav-trade")?.addEventListener("click", () => window.location.href = "users.html");
+        document.querySelector("#nav-friends")?.addEventListener("click", () => window.location.href = "chat.html");
+      });
+  </script>
+  <script type="module" src="./public/js/discover.js"></script>
+</body>
+</html>
