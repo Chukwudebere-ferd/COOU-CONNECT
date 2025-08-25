@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>COOU App UI</title>
-  <link rel="stylesheet" href="./public/css/dashboard.css" />
+  <link rel="stylesheet" href="./css/dashboard.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 </head>
@@ -60,6 +60,8 @@
 </div>
 
 <!-- Feed Posts Container -->
+ <div id="feeds-container"></div>
+
 <div id="post-feed" class="feed-container"></div>
 <br><br>
 <div id="like-modal" class="like-modal" style="display: none;">
@@ -105,6 +107,6 @@
         document.querySelector("#nav-friends")?.addEventListener("click", () => window.location.href = "chat.html");
       });
   </script>
-  <script type="module" src="./public/js/dashboard.js" defer></script>
+  <script type="module" src="./js/dashboard.js" defer></script>
 </body>
 </html>

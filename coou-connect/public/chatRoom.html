@@ -3,14 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discover</title>
-    <link rel="stylesheet" href="./public/css/discover.css">
+    <title>chat room folder</title>
+    <link rel="stylesheet" href="./css/chatRroom.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    
+     <header id="chat-partner"></header>
 
-      <div id="nav-placeholder"></div>
+  <main id="messages" class="messages-container"></main>
+
+  <div id="typing-indicator" style="display:none;">Typing...</div>
+
+  <footer class="chat-input-bar">
+  <div class="input-wrapper">
+    <!-- Reply preview shows here if replying -->
+    <div id="reply-preview" class="reply-preview" style="display: none;">
+      <span id="reply-text">Replying to message</span>
+      <button id="cancel-reply" class="cancel-reply">✕</button>
+    </div>
+
+    <input id="message-input" type="text" placeholder="Type a message..." required />
+    <input type="file" id="image-input" accept="image/*" style="display:none;" />
+  </div>
+
+  <button id="send-btn">Send</button>
+</footer>
+
+         <div id="nav-placeholder"></div>
+
   <script>
     // Load nav.html into placeholder
     fetch("nav.html")
@@ -33,6 +53,6 @@
         document.querySelector("#nav-friends")?.addEventListener("click", () => window.location.href = "chat.html");
       });
   </script>
-  <script type="module" src="./public/js/discover.js"></script>
+    <script type="module" src="./js/chatRoom.js" defer></script>
 </body>
 </html>

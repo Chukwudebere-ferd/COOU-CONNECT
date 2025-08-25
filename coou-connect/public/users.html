@@ -3,26 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>chat room folder</title>
-    <link rel="stylesheet" href="./public/css/chatRroom.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>users</title>
+    <link rel="stylesheet" href="./css/users.css">
 </head>
 <body>
-     <header id="chat-partner"></header>
+  <main>
+    <h2>All Students</h2>
 
-  <main id="messages" class="messages-container"></main>
+    <input type="text" id="user-search" placeholder="Search students by depart,level,name..." />
 
-  <div id="typing-indicator" style="display:none;">Typing...</div>
-
-  <footer class="chat-input-bar">
-    <input id="message-input" type="text" placeholder="Type a message..." required/>
-    <input type="file" id="image-input" accept="image/*" style="display:none;" />
-<button id="upload-btn">📷</button>
-
-    <button id="send-btn">Send</button>
-
-  </footer>
-         <div id="nav-placeholder"></div>
+    <div id="users-container">
+      <!-- Skeleton loader placeholders -->
+      <div class="user-card skeleton"><div class="user-img"></div><div class="line short"></div><div class="line"></div></div>
+      <div class="user-card skeleton"><div class="user-img"></div><div class="line short"></div><div class="line"></div></div>
+      <div class="user-card skeleton"><div class="user-img"></div><div class="line short"></div><div class="line"></div></div>
+    </div>
+  </main>
+      <div id="nav-placeholder"></div>
 
   <script>
     // Load nav.html into placeholder
@@ -46,6 +43,6 @@
         document.querySelector("#nav-friends")?.addEventListener("click", () => window.location.href = "chat.html");
       });
   </script>
-    <script type="module" src="./public/js/chatRoom.js"></script>
+    <script type="module" src="./js/users.js" defer></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>chat</title>
-    <link rel="stylesheet" href="./public/css/chat.css">
+    <link rel="stylesheet" href="./css/chat.css">
 </head>
 <body>
     <header>
@@ -13,8 +13,9 @@
   </header>
 
   <main id="chat-list-container">
-    <div id="chat-loader">Loading chats...</div>
-<div id="chat-list"></div>
+    <div id="chatsContainer"></div>
+
+<div id="chatList"></div>
 
   </main>
     
@@ -43,6 +44,6 @@
         document.querySelector("#nav-friends")?.addEventListener("click", () => window.location.href = "chat.html");
       });
   </script>
-  <script type="module" src="./public/js/chat.js" defer></script>
+  <script type="module" src="./js/chat.js" defer></script>
 </body>
 </html>

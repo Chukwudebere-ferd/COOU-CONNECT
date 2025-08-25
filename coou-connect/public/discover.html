@@ -3,24 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>users</title>
-    <link rel="stylesheet" href="./public/css/users.css">
+    <title>Discover</title>
+    <link rel="stylesheet" href="./css/discover.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <main>
-    <h2>All Students</h2>
+    
 
-    <input type="text" id="user-search" placeholder="Search students by depart,level,name..." />
+  <section class="discover-container">
+    <h2>✨ Discover</h2>
 
-    <div id="users-container">
-      <!-- Skeleton loader placeholders -->
-      <div class="user-card skeleton"><div class="user-img"></div><div class="line short"></div><div class="line"></div></div>
-      <div class="user-card skeleton"><div class="user-img"></div><div class="line short"></div><div class="line"></div></div>
-      <div class="user-card skeleton"><div class="user-img"></div><div class="line short"></div><div class="line"></div></div>
+    <div id="discover-post-form" class="post-form">
+      <textarea id="discover-input" placeholder="What's on your mind?" rows="3"></textarea>
+      <button id="post-discover-btn">Post</button>
     </div>
-  </main>
-      <div id="nav-placeholder"></div>
 
+    <div id="discover-list">
+      <!-- Skeleton loader -->
+      <div class="skeleton-post" style="--count:3;"></div>
+    </div>
+  </section>
+
+</section>
+
+      <div id="nav-placeholder"></div>
   <script>
     // Load nav.html into placeholder
     fetch("nav.html")
@@ -43,6 +49,6 @@
         document.querySelector("#nav-friends")?.addEventListener("click", () => window.location.href = "chat.html");
       });
   </script>
-    <script type="module" src="./public/js/users.js"></script>
+  <script type="module" src="./js/discover.js" defer></script>
 </body>
 </html>

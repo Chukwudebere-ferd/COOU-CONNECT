@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "public": "coou-connect/public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "*/node_modules/*"
+    ]
+  }
+}
+

@@ -65,6 +65,8 @@ const editDept = document.getElementById("edit-dept");
 const editLevel = document.getElementById("edit-level");
 const editImage = document.getElementById("edit-image");
 const loader = document.getElementById("upload-loader");
+const postLoader = document.getElementById("post-loader");
+
 
 const defaultImg = "https://i.postimg.cc/FKRrnLbg/coou-connect-logo.jpg";
 
@@ -206,7 +208,8 @@ onAuthStateChanged(auth, async (user) => {
 const postForm = document.getElementById("post-form");
 const postCaption = document.getElementById("post-caption");
 const postImage = document.getElementById("post-image");
-const postLoader = document.getElementById("post-loader");
+const feedsContainer = document.getElementById("feeds-container");
+
 
 async function uploadPostImage(file) {
   if (!file) {
@@ -308,11 +311,16 @@ function timeSince(date) {
   return "Just now";
 }
 
+
 // 🔁 Load posts
   async function loadPosts() {
   const feedContainer = document.getElementById("post-feed");
-  feedContainer.innerHTML = "<center><p>Loading posts...</p></center>";
 
+feedsContainer.innerHTML = `
+  <div class="feed-skeleton"></div>
+  <div class="feed-skeleton"></div>
+  <div class="feed-skeleton"></div>
+`;
   try {
     const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
     const snapshot = await getDocs(q);
@@ -323,6 +331,7 @@ function timeSince(date) {
     }
 
     feedContainer.innerHTML = "";
+    feedsContainer.style.display = "none";
 
     for (const docSnap of snapshot.docs) {
       const post = docSnap.data();
@@ -647,4 +656,5 @@ onAuthStateChanged(auth, async (user) => {
     window.location.href = "index.html";
   }
 });
+
 
