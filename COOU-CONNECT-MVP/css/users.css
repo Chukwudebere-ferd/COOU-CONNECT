@@ -1,0 +1,100 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+body {
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  width: 100% ;
+}
+main {
+  position: absolute;
+  top: 0%;
+  width: 100%;
+}
+h2 {
+  margin-bottom: 10px;
+}
+
+#user-search {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  position: sticky;
+}
+
+#users-loader {
+  font-size: 14px;
+  color: gray;
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  background: white;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-name {
+  font-weight: bold;
+  color: #205020;
+}
+
+.connect-btn {
+  padding: 6px 10px;
+  background-color: #205020;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.connect-btn:hover {
+  background-color: #1a3f1a;
+}
+.chat-btn {
+  background: none; border: none; cursor: pointer;
+  color: #205020; font-size: 18px;
+}
+.chat-btn:hover { color: #123812; }
+
+/* Skeleton loader */
+.skeleton { position: relative; overflow: hidden; }
+.skeleton::after {
+  content: ''; position: absolute; top:0; left: -150px;
+  width: 150px; height:100%;
+  background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
+  animation: loading 1.2s infinite;
+}
+.user-card.skeleton .user-img,
+.user-card.skeleton .line {
+  background: #ddd; border-radius: 4px;
+}
+.user-card.skeleton .user-img { width:45px; height:45px; }
+.line { height: 10px; background: #ddd; margin: 6px 0; border-radius: 4px; flex-grow:1; }
+.line.short { width: 30%; }
+
+@keyframes loading {
+  0% { left: -150px; } 50% { left: 100%; } 100% { left: 100%; }
+}

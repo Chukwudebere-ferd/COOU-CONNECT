@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COOU App UI</title>
+  <link rel="stylesheet" href="./css/dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+</head>
+<body>
+<!-- ✅ Top Header -->
+<header class="top-header">
+  <div class="logo">COOU</div>
+
+  <!-- ✅ Profile Trigger (clickable area) -->
+  <div class="profile-trigger" id="toggle-profile">
+    <span id="username">IFESINACHI</span>
+    <img class="nav-profile-img" src="https://i.postimg.cc/FKRrnLbg/coou-connect-logo.jpg" alt="Profile" />
+  </div>
+</header>
+
+<!-- ✅ Dropdown Profile Panel -->
+<div id="profile-section" class="profile-dropdown" style="display: none;">
+  <div id="profile-view" class="profile-card">
+    <img id="profile-photo" src="https://i.postimg.cc/FKRrnLbg/coou-connect-logo.jpg" alt="Profile" />
+    <h3 id="view-name">Full Name</h3>
+    <p id="view-dept">Department</p>
+    <p id="view-level">Level</p>
+    <button id="edit-profile-btn">Edit Profile</button>
+    <button id="signout-btn" class="signout-btn">Sign Out</button>
+  </div>
+
+  <div id="profile-edit" style="display: none;">
+    <form id="edit-profile-form">
+      <input type="text" id="edit-name" placeholder="Full Name" />
+      <input type="text" id="edit-dept" placeholder="Department" />
+      <input type="text" id="edit-level" placeholder="Level" />
+      <input type="file" id="edit-image" />
+      <button type="submit">Save</button>
+      <button type="button" id="cancel-edit">Cancel</button>
+    </form>
+    <div id="upload-loader" class="loader-text" style="display: none;">Uploading...</div>
+  </div>
+</div>
+
+
+
+
+
+  <main id="content">
+   <div id="feed-upload" class="feed-upload-card">
+  <h3>Create a Post</h3>
+  <form id="post-form">
+    <textarea id="post-caption" placeholder="What's on your mind?" required></textarea>
+    <input type="file" id="post-image" accept="image/*" />
+    <button type="submit">Post</button>
+    <p id="post-loader" class="loader-text" style="display: none;">Uploading...</p>
+  </form>
+</div>
+
+<!-- Feed Posts Container -->
+ <div id="feeds-container"></div>
+
+<div id="post-feed" class="feed-container"></div>
+<br><br>
+<div id="like-modal" class="like-modal" style="display: none;">
+  <div class="like-modal-content">
+    <h3>Liked By</h3>
+    <ul id="like-user-list"></ul>
+    <button id="close-like-modal">Close</button>
+  </div>
+</div>
+<div class="comment-section">
+  <div class="comment-list">
+    <!-- comment-item(s) injected here -->
+  </div>
+</div>
+
+
+<p id="auth-error" class="error-text" style="display: none; color: red;"></p>
+
+
+
+  </main>
+  <div id="nav-placeholder"></div>
+
+  <script>
+    // Load nav.html into placeholder
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+
+        // Highlight active nav
+        const current = window.location.pathname;
+        document.querySelectorAll(".bottom-nav button").forEach(btn => {
+          if (current.includes(btn.id.replace("nav-", ""))) {
+            btn.classList.add("active");
+          }
+        });
+
+        // Navigation routing
+        document.querySelector("#nav-home")?.addEventListener("click", () => window.location.href = "dashboard.html");
+        document.querySelector("#nav-discover")?.addEventListener("click", () => window.location.href = "discover.html");
+        document.querySelector("#nav-trade")?.addEventListener("click", () => window.location.href = "users.html");
+        document.querySelector("#nav-friends")?.addEventListener("click", () => window.location.href = "chat.html");
+      });
+  </script>
+  <script type="module" src="./js/dashboard.js" defer></script>
+</body>
+</html>

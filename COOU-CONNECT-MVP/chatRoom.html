@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chat room folder</title>
+    <link rel="stylesheet" href="./css/chatRroom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+     <header id="chat-partner"></header>
+
+  <main id="messages" class="messages-container"></main>
+
+  <div id="typing-indicator" style="display:none;">Typing...</div>
+
+  <footer class="chat-input-bar">
+  <div class="input-wrapper">
+    <!-- Reply preview shows here if replying -->
+    <div id="reply-preview" class="reply-preview" style="display: none;">
+      <span id="reply-text">Replying to message</span>
+      <button id="cancel-reply" class="cancel-reply">✕</button>
+    </div>
+
+    <input id="message-input" type="text" placeholder="Type a message..." required />
+    <input type="file" id="image-input" accept="image/*" style="display:none;" />
+  </div>
+
+  <button id="send-btn">Send</button>
+</footer>
+
+         <div id="nav-placeholder"></div>
+
+  <script>
+    // Load nav.html into placeholder
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+
+        // Highlight active nav
+        const current = window.location.pathname;
+        document.querySelectorAll(".bottom-nav button").forEach(btn => {
+          if (current.includes(btn.id.replace("nav-", ""))) {
+            btn.classList.add("active");
+          }
+        });
+
+        // Navigation routing
+        document.querySelector("#nav-home")?.addEventListener("click", () => window.location.href = "dashboard.html");
+        document.querySelector("#nav-discover")?.addEventListener("click", () => window.location.href = "discover.html");
+        document.querySelector("#nav-trade")?.addEventListener("click", () => window.location.href = "users.html");
+        document.querySelector("#nav-friends")?.addEventListener("click", () => window.location.href = "chat.html");
+      });
+  </script>
+    <script type="module" src="./js/chatRoom.js" defer></script>
+</body>
+</html>
