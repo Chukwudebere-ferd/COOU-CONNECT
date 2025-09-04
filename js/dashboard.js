@@ -385,7 +385,7 @@ feedsContainer.innerHTML = `
   <small class="timestamp">${timeAgo}</small>
 </div>
 
-            ${isOwner ? '<button class="delete-post-btn"><i class="fas fa-trash-alt"></i></button>' : ""}
+            ${isOwner ? '<button class="delete-post-btn">🗑️</button>' : ""}
           </div>
 
           <img src="${post.imageUrl || ''}" alt="Post" class="post-img" />
