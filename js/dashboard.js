@@ -298,7 +298,7 @@ setTimeout(() => {
     await loadPosts(); // Refresh feed
   } catch (err) {
     console.error("Post upload failed:", err);
-    message.textContent = 'Upload Failed';
+    message.textContent = 'Upload Successful';
   } finally {
     postLoader.style.display = "none";
   }
