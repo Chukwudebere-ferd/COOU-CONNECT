@@ -108,68 +108,14 @@
       });
   </script>
   <script type="module" src="./js/dashboard.js" defer></script>
-  <script type="module" src="./js/notification.js"></script>
+  
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
   (function(){
     emailjs.init("V0eT-aJyyq0_HVaYV"); 
   })();
 </script>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-  import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-messaging.js";
-  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-  // ✅ Firebase Config
-  const firebaseConfig = {
-    apiKey: "AIzaSyByuuRpHOfeWEcKl_oaob6V_tmnYyJ_vbU",
-    authDomain: "coou-connect-75406.firebaseapp.com",
-    projectId: "coou-connect-75406",
-    storageBucket: "coou-connect-75406.appspot.com",
-    messagingSenderId: "1070347911713",
-    appId: "1:1070347911713:web:35c75b840a38f6cd7a1960"
-  };
-
-  // ✅ Init Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-  const messaging = getMessaging(app);
-
-  // ✅ Request Notification Permission + Save Token
-  async function requestPermissionAndSaveToken(user) {
-    try {
-      const token = await getToken(messaging, {
-        vapidKey: "BOYugWO9mtdXtEdsz4fUssQ6z5A-q2ddDEAtoDcUxgWIhRsLrGOknkt9BGr87KPOzjYn5Y5_HtldmeCP_pQJHGM"
-      });
-
-      if (token) {
-        console.log("✅ FCM Token:", token);
-
-        // Save token to Firestore under user's profile
-        await setDoc(doc(db, "users", user.uid), { fcmToken: token }, { merge: true });
-      } else {
-        console.warn("⚠️ No registration token available. User might have blocked notifications.");
-      }
-    } catch (err) {
-      console.error("❌ Error getting token:", err);
-    }
-  }
-
-  // ✅ Handle Foreground Notifications
-  onMessage(messaging, (payload) => {
-    console.log("📩 Message received:", payload);
-    alert(`New notification: ${payload.notification.title}`);
-  });
-
-  // ✅ Trigger when user logs in
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      requestPermissionAndSaveToken(user);
-    }
-  });
-</script>
 
 </body>
 </html>
