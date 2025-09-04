@@ -264,14 +264,41 @@ postForm?.addEventListener("submit", async (e) => {
       likes: {},
       commentCount: 0,
       timestamp: serverTimestamp()
+      
     });
-
+    await notifyNewPost(userData.name || "Student", caption);
     postForm.reset();
-    alert("Post uploaded!");
+    // Create the message element
+const message = document.createElement('div');
+message.textContent = 'Upload Successful';
+
+// Style it using COOU Connect green
+message.style.backgroundColor = '#00A651'; // Replace with exact COOU green if you have it
+message.style.color = 'white';
+message.style.padding = '12px 20px';
+message.style.borderRadius = '8px';
+message.style.fontFamily = 'Arial, sans-serif';
+message.style.fontSize = '16px';
+message.style.fontWeight = 'bold';
+message.style.textAlign = 'center';
+message.style.position = 'fixed';
+message.style.top = '20px';
+message.style.right = '20px';
+message.style.zIndex = '1000';
+message.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+
+// Add it to the page
+document.body.appendChild(message);
+
+// Optionally remove it after a few seconds
+setTimeout(() => {
+  message.remove();
+}, 3000);
+
     await loadPosts(); // Refresh feed
   } catch (err) {
     console.error("Post upload failed:", err);
-    alert("Error uploading post.");
+    message.textContent = 'Upload Failed';
   } finally {
     postLoader.style.display = "none";
   }
@@ -658,3 +685,95 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 
+// ============================
+// 📧 EMAILJS NOTIFICATIONS
+// ============================
+function sendEmailNotification(params) {
+  return emailjs.send("service_elczufd", "template_8el5p9l", params)
+    .then(res => console.log("✅ Email sent", res))
+    .catch(err => console.error("❌ Email error", err));
+}
+
+// 🔔 Notify all users when someone posts
+async function notifyNewPost(username, caption) {
+  const usersSnap = await getDocs(collection(db, "users"));
+  usersSnap.forEach(userDoc => {
+    const user = userDoc.data();
+    if (user.email) {
+      sendEmailNotification({
+        to_email: user.email,
+        from_name: username,
+        message: `posted: "${caption}"`
+      });
+    }
+  });
+}
+
+// 💬 Notify post owner when someone comments
+async function notifyNewComment(postId, commenterName, commentText) {
+  const postRef = doc(db, "posts", postId);
+  const postSnap = await getDoc(postRef);
+  if (!postSnap.exists()) return;
+
+  const postData = postSnap.data();
+  const postOwnerId = postData.userId;
+
+  if (auth.currentUser?.uid === postOwnerId) return; // don’t notify self
+
+  const ownerRef = doc(db, "users", postOwnerId);
+  const ownerSnap = await getDoc(ownerRef);
+
+  if (ownerSnap.exists()) {
+    const ownerEmail = ownerSnap.data().email;
+    if (ownerEmail) {
+      sendEmailNotification({
+        to_email: ownerEmail,
+        from_name: commenterName,
+        message: `commented: "${commentText}" on your post`
+      });
+    }
+  }
+}
+
+// ❤️ Notify post owner when someone likes
+async function notifyNewLike(postId, likerName) {
+  const postRef = doc(db, "posts", postId);
+  const postSnap = await getDoc(postRef);
+  if (!postSnap.exists()) return;
+
+  const postData = postSnap.data();
+  const postOwnerId = postData.userId;
+
+  if (auth.currentUser?.uid === postOwnerId) return; // don’t notify self
+
+  const ownerRef = doc(db, "users", postOwnerId);
+  const ownerSnap = await getDoc(ownerRef);
+
+  if (ownerSnap.exists()) {
+    const ownerEmail = ownerSnap.data().email;
+    if (ownerEmail) {
+      sendEmailNotification({
+        to_email: ownerEmail,
+        from_name: likerName,
+        message: `liked your post`
+      });
+    }
+  }
+}
+
+// 👥 Notify user when they get a friend request
+async function notifyFriendRequest(fromUserName, toUserId) {
+  const toUserRef = doc(db, "users", toUserId);
+  const toUserSnap = await getDoc(toUserRef);
+
+  if (toUserSnap.exists()) {
+    const toEmail = toUserSnap.data().email;
+    if (toEmail) {
+      sendEmailNotification({
+        to_email: toEmail,
+        from_name: fromUserName,
+        message: `sent you a friend request`
+      });
+    }
+  }
+}

@@ -68,14 +68,39 @@ registerForm.addEventListener("submit", async (e) => {
       verified: false,
       createdAt: new Date().toISOString()
 });
+// Create the message element
+const message = document.createElement('div');
+message.textContent = 'Registration successful! Please log in.';
 
-    alert("Registration successful! You can now log in.");
+// Style it using COOU Connect green
+message.style.backgroundColor = '#00A651'; // Replace with exact COOU green if you have it
+message.style.color = 'white';
+message.style.padding = '12px 20px';
+message.style.borderRadius = '8px';
+message.style.fontFamily = 'Arial, sans-serif';
+message.style.fontSize = '16px';
+message.style.fontWeight = 'bold';
+message.style.textAlign = 'center';
+message.style.position = 'fixed';
+message.style.top = '20px';
+message.style.right = '20px';
+message.style.zIndex = '1000';
+message.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+
+// Add it to the page
+document.body.appendChild(message);
+
+// Optionally remove it after a few seconds
+setTimeout(() => {
+  message.remove();
+}, 3000);
+
     registerForm.reset();
     registerForm.style.display = "none";
     loginForm.style.display = "flex";
 
 } catch (error) {
-    alert("Registration failed: " + error.message);
+  message.textContent = 'Registration failed: ' + error.message;
 } finally {
     registerBtn.disabled = false;
     registerBtn.textContent = "Register";
@@ -121,7 +146,7 @@ loginForm.addEventListener("submit", async (e) => {
 }
 
 } catch (error) {
-    alert("Login failed: " + error.message);
+  message.textContent = 'Login failed: ' + error.message;
 } finally {
     loginBtn.disabled = false;
     loginBtn.textContent = "Login";
